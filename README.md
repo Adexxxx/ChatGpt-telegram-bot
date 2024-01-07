@@ -1,1 +1,1 @@
-# ChatGpt-telegram-bot
+Халявный ChatGPT через телеграм
