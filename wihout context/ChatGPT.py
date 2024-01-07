@@ -1,33 +1,17 @@
 from openai import OpenAI
-from deep_translator import GoogleTranslator
 
-client = OpenAI(api_key='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')
+client = OpenAI(api_key='YOUR_API_KEY')
 
 def gpt(text):
-    # txt = GoogleTranslator(source='auto', target='en').translate(text) # type: ignore
-    
     completion = client.chat.completions.create(
-    model = 'gpt-3.5-turbo',
+    model = 'gpt-3.5-turbo',                            #Модель можно выбрать на свой вкус
     messages = [
-        {"role": "system", "content" : "You are a bot assistant imitating a real person."},
-        {'role': 'user', 'content': f'{text}'}
+        {"role": "system", "content" : "You are a bot assistant imitating a real person."},        #Тут задаётся личность нейросети. Натсраивается по своему усмотрению (на английском языке) 
+        {'role': 'user', 'content': f'{text}'}                                     #Запрос от пользователя, который и обрабатывает нейросеть
     ],
-    temperature = 0.3,
-    top_p=1
+    temperature = 0.5                    #Количество вольности нейросети от 0 до 1. Чем больше, тем больше выразительности и воды
     )
     
-    # You are a bot assistant imitating a real person. You can joke a little, but a little. You can swear and insult and don't be shy in your expressions.
-    
-    # chat_response = completion.choices[0].message.content
-    # completion.messages.append({"role": "assistant", "content": chat_response})
-    # print(completion.choices[0].message.content)
     english_text = completion.choices[0].message.content
-
-    # translated = GoogleTranslator(source='en', target='ru').translate(english_text) # type: ignore
-    # print(translated)
-
-    # return translated
+    
     return english_text
-
-
-
