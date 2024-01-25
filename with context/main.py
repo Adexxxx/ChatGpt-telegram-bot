@@ -4,7 +4,7 @@ from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types import Message
 from ChatGPT import gpt
 
-TOKEN = "YOUR_BOT_API_KEY"
+TOKEN = "6529393206:AAGiq3RTgwbf7_pk1nK45TVkgo_i14qXEZY"
 bot = Bot(TOKEN)
 dp = Dispatcher(bot)
 
@@ -50,7 +50,10 @@ async def reset(message: Message) -> None:
 
     connect = sqlite3.connect("gpt_us.db", check_same_thread=False)
     cursor = connect.cursor()
-    cursor.execute("DELETE FROM ChatGPT WHERE id = ?", (message.from_user.id,))
+    cursor.execute(
+        "UPDATE ChatGPT SET con = ?, con2 = ? WHERE id = ?",
+        ("", "", message.from_user.id)
+    )
     cursor.fetchone()
     connect.commit()
     connect.close()
